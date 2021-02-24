@@ -71,12 +71,13 @@ def train(net, dataSet):
             output = net(inputs);
 
             prediction = torch.argmax(output, 1);
-            correctNegative += (prediction == target).sum().float();
+            correctBatch = (prediction == target).sum().float();
+            correctNegative += correctBatch;
 
             negativeValidationSetSize += len(target);
 
             # Refresh hard negative mining list
-            if (correctNegative.to("cpu").item() / len(target)) <= hardNegativeMiningThreshold:
+            if (correctBatch.to("cpu").item() / len(target)) <= hardNegativeMiningThreshold:
                 hardNegativeMiningList += index;
 
         negativeAccuracy = (correctNegative / negativeValidationSetSize).to("cpu").item();
