@@ -114,10 +114,13 @@ class MITBIHDataSet(data.Dataset):
         self.dataSetMode = mode;
 
     def hardNegativeMining(self, hnmList):
-        for index in hnmList:
+        newValidationNegativeDataSet = [];
+        for index in range(0, len(self.validationNegativeDataSet)):
             item = self.validationNegativeDataSet[index];
-            self.trainDataSet.append(item);
-            self.validationNegativeDataSet.remove(item);
+            if index in hnmList: self.trainDataSet.append(item);
+            else: newValidationNegativeDataSet.append(item);
+
+        self.validationNegativeDataSet = newValidationNegativeDataSet;
 
     def __getitem__(self, item):
         # Get path
