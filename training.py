@@ -87,4 +87,5 @@ def train(net, dataSet):
             break;
 
     print("Training finished.");
-    torch.save(net.state_dict(), "./model.pkl");
+    torch.save(net.state_dict(), "./parameters.pkl");
+    torch.save(net, "./model.pkl");
