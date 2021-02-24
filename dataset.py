@@ -124,9 +124,9 @@ class MITBIHDataSet(data.Dataset):
         if self.dataSetMode == DataSetMode.TRAINING:
             path = self.trainDataSet[item];
         elif self.dataSetMode == DataSetMode.VALIDATION_POSITIVE:
-            path = self.positiveDataSet[item];
+            path = self.validationPositiveDataSet[item];
         else: # VALIDATION_NEGATIVE
-            path = self.negativeDataSet[item];
+            path = self.validationNegativeDataSet[item];
 
         markFile = os.path.splitext(path)[0] + ".txt";
 
@@ -153,8 +153,8 @@ class MITBIHDataSet(data.Dataset):
         if self.dataSetMode == DataSetMode.TRAINING:
             return len(self.trainDataSet);
         elif self.dataSetMode == DataSetMode.VALIDATION_POSITIVE:
-            return len(self.positiveDataSet);
+            return len(self.validationPositiveDataSet);
         else:  # VALIDATION_NEGATIVE
-            return len(self.negativeDataSet);
+            return len(self.validationNegativeDataSet);
 
 

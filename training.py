@@ -60,7 +60,7 @@ def train(net, dataSet):
         # Negative validation and hard negative mining
         dataSet.setMode(DataSetMode.VALIDATION_NEGATIVE);
 
-        hardNegativeMiningThreshold = .75;
+        hardNegativeMiningThreshold = .85;
         hardNegativeMiningList = [];
         correctNegative = 0;
         negativeValidationSetSize = 0;
@@ -75,7 +75,7 @@ def train(net, dataSet):
             negativeValidationSetSize += len(target);
 
             # Refresh hard negative mining list
-            if correctNegative.to("cpu").item() <= hardNegativeMiningThreshold:
+            if (correctNegative.to("cpu").item() / len(target)) <= hardNegativeMiningThreshold:
                 hardNegativeMiningList += index;
 
         negativeAccuracy = (correctNegative / negativeValidationSetSize).to("cpu").item();
