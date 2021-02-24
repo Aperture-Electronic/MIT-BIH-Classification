@@ -12,7 +12,7 @@ def train(net, dataSet):
     net = net.to(device);
 
     dataSet.resetDataSet();
-    dataSetLoader = DataLoader(dataSet, batch_size=4096, shuffle=True);
+
     optimizer = optim.Adam(net.parameters());
     criterion = nn.CrossEntropyLoss();
 
@@ -21,7 +21,7 @@ def train(net, dataSet):
 
         # Training
         dataSet.setMode(DataSetMode.TRAINING);
-
+        dataSetLoader = DataLoader(dataSet, batch_size=4096, shuffle=True);
         for ecg, label, index in dataSetLoader:
             inputs = ecg.to(torch.float32).to(device);
             target = label.to(torch.long).to(device);
@@ -42,7 +42,7 @@ def train(net, dataSet):
 
         # Positive validation
         dataSet.setMode(DataSetMode.VALIDATION_POSITIVE);
-
+        dataSetLoader = DataLoader(dataSet, batch_size=4096, shuffle=True);
         correctPositive = 0;
         positiveValidationSetSize = 0;
         for ecg, label, index in dataSetLoader:
@@ -60,7 +60,7 @@ def train(net, dataSet):
 
         # Negative validation and hard negative mining
         dataSet.setMode(DataSetMode.VALIDATION_NEGATIVE);
-
+        dataSetLoader = DataLoader(dataSet, batch_size=256, shuffle=True);
         hardNegativeMiningThreshold = .80;
         hardNegativeMiningList = [];
         correctNegative = 0;
